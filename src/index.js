@@ -12,8 +12,8 @@ const refs = {
   loadBtnEl: document.querySelector('.load-more'),
 };
 
-let totalPages = 1;
 const apiService = new ApiService();
+let totalPages = 1;
 let gallerySimpleLightbox = {};
 
 refs.formEl.addEventListener('submit', onSubmit);
@@ -54,12 +54,12 @@ function onFoundSuccess(images) {
   Report.info(`Hooray! We found ${totalHits} images.`, '', "Let's watch");
   loadMoreVisibility();
   insertImages(hits);
+  gallerySimpleLightbox = new SimpleLightbox('.photo-link');
 }
 
 function insertImages(images) {
   const markup = renderImages(images);
   refs.galleryEl.insertAdjacentHTML('beforeend', markup);
-  gallerySimpleLightbox = new SimpleLightbox('.photo-link');
 
   if (totalPages === apiService.page) {
     Report.info(
@@ -107,8 +107,10 @@ function clearDisplay() {
   refs.galleryEl.innerHTML = '';
 }
 
-function onLoadMore() {
-  apiService.getImages().then(data => insertImages(data.hits));
+async function onLoadMore() {
+  await apiService.getImages().then(data => insertImages(data.hits));
+  gallerySimpleLightbox.refresh();
+  slowlyScroll();
 }
 
 function loadMoreHidden() {
@@ -117,4 +119,15 @@ function loadMoreHidden() {
 
 function loadMoreVisibility() {
   refs.loadBtnEl.classList.remove('is-hidden');
+}
+
+function slowlyScroll() {
+  const { height: cardHeight } = document
+    .querySelector('.gallery')
+    .firstElementChild.getBoundingClientRect();
+
+  window.scrollBy({
+    top: cardHeight * 2,
+    behavior: 'smooth',
+  });
 }
