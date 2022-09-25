@@ -2,7 +2,7 @@ import { Report } from 'notiflix/build/notiflix-report-aio';
 import { ApiService } from './api';
 import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
-Report.init({ width: 'auto', titleMaxLength: 60 });
+Report.init({ width: 'auto', titleMaxLength: 75 });
 
 const refs = {
   formEl: document.querySelector('.search-form'),
