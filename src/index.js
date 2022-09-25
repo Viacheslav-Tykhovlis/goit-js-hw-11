@@ -54,13 +54,12 @@ function onFoundSuccess(images) {
   Report.info(`Hooray! We found ${totalHits} images.`, '', "Let's watch");
   loadMoreVisibility();
   insertImages(hits);
-  gallerySimpleLightbox = new SimpleLightbox('.photo-link');
 }
 
 function insertImages(images) {
   const markup = renderImages(images);
   refs.galleryEl.insertAdjacentHTML('beforeend', markup);
-  // updateSimpleLightbox();
+  gallerySimpleLightbox = new SimpleLightbox('.photo-link');
 
   if (totalPages === apiService.page) {
     Report.info(
@@ -110,8 +109,6 @@ function clearDisplay() {
 
 function onLoadMore() {
   apiService.getImages().then(data => insertImages(data.hits));
-  // gallerySimpleLightbox.refresh();
-  // updateSimpleLightbox();
 }
 
 function loadMoreHidden() {
@@ -121,8 +118,3 @@ function loadMoreHidden() {
 function loadMoreVisibility() {
   refs.loadBtnEl.classList.remove('is-hidden');
 }
-
-// function updateSimpleLightbox() {
-//   gallerySimpleLightbox.destroy();
-//   gallerySimpleLightbox = new SimpleLightbox('.photo-link');
-// }
