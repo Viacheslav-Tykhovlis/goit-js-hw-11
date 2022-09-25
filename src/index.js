@@ -1,7 +1,8 @@
 import { Report } from 'notiflix/build/notiflix-report-aio';
 import { ApiService } from './api';
-// import SimpleLightbox from 'simplelightbox';
-// import 'simplelightbox/dist/simple-lightbox.min.css';
+import SimpleLightbox from 'simplelightbox';
+import 'simplelightbox/dist/simple-lightbox.min.css';
+Report.init({ width: 'auto', titleMaxLength: 60 });
 
 const refs = {
   formEl: document.querySelector('.search-form'),
@@ -13,7 +14,7 @@ const refs = {
 
 let totalPages = 1;
 const apiService = new ApiService();
-// let gallerySimpleLightbox = {};
+let gallerySimpleLightbox = {};
 
 refs.formEl.addEventListener('submit', onSubmit);
 refs.loadBtnEl.addEventListener('click', onLoadMore);
@@ -53,7 +54,7 @@ function onFoundSuccess(images) {
   Report.info(`Hooray! We found ${totalHits} images.`, '', "Let's watch");
   loadMoreVisibility();
   insertImages(hits);
-  // gallerySimpleLightbox = new SimpleLightbox('.photo-link');
+  gallerySimpleLightbox = new SimpleLightbox('.photo-link');
 }
 
 function insertImages(images) {
