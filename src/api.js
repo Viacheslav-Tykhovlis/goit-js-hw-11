@@ -6,16 +6,15 @@ const KEY = '30132115-7f2225df990f8cd81354d9436';
 export class ApiService {
   constructor() {
     this.searchText = '';
-    this.page = 1;
+    this.page = 0;
   }
 
   async getImages() {
+    this.page += 1;
     try {
       const { data } = await axios.get(
-        `?key=${KEY}&q=${this.searchText}s&image_type=photo&orientation=horizontal&safesearch=true&page=${this.page}&per_page=5`
+        `?key=${KEY}&q=${this.searchText}s&image_type=photo&orientation=horizontal&safesearch=true&page=${this.page}&per_page=40`
       );
-      //   console.log(data);
-      this.page += 1;
       return data;
     } catch (error) {
       Report.failure(error);
@@ -23,7 +22,7 @@ export class ApiService {
   }
 
   resetPage() {
-    this.page = 1;
+    this.page = 0;
   }
 
   get text() {
