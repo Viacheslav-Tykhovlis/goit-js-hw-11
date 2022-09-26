@@ -14,7 +14,7 @@ const refs = {
 
 const apiService = new ApiService();
 let totalPages = 1;
-let gallerySimpleLightbox = {};
+let gallerySimpleLightbox = new SimpleLightbox('.photo-link');
 
 refs.formEl.addEventListener('submit', onSubmit);
 refs.loadBtnEl.addEventListener('click', onLoadMore);
@@ -54,7 +54,7 @@ function onFoundSuccess(images) {
   Report.info(`Hooray! We found ${totalHits} images.`, '', "Let's watch");
   loadMoreVisibility();
   insertImages(hits);
-  gallerySimpleLightbox = new SimpleLightbox('.photo-link');
+  gallerySimpleLightbox.refresh();
 }
 
 function insertImages(images) {
